@@ -1,9 +1,9 @@
 # Modeling Visual Context is Key to Augmenting Object Detection Datasets
 
- Deep neural network for explicit context modeling + a context-guided augmentation pipeline
+ A CNN for explicit context modeling + the pipeline for context-guided data augmentation
 
 ## Introduction
-This repository contains original implementation of the paper 'Modeling Visual
+This repository contains original code for the paper 'Modeling Visual
 Context is Key to Augmenting Object Detection Datasets' by Nikita Dvornik,
 Julien Mairal and Cordelia Schmid.
 The paper is available at https://arxiv.org/abs/1807.07428.
@@ -17,9 +17,9 @@ Here, we start by downloading the PASCAL VOC12 dataset and extracting instances
 from it. Then, we show how to train the context model on VOC12train dataset and
 apply it to VOC12val-seg subset in order to get suitable for augmentation
 location candidates. One may bypass this step and download the locations scored
-by us (see below "Downloading locations scored by us"). Then, for each location
-we find instances that could be placed inside and perform copy-paste data
-augmentation on the dataset's images.
+by us (see below the section "Downloading locations scored by us"). Then, for
+each location we find instances that could be placed inside and perform
+copy-paste data augmentation on the dataset's images.
 
 
 The repository borrows the structure of training, inference and data loading
@@ -50,7 +50,7 @@ Please cite us in your publications if it helps your research:
 3. Next, we need to extract objects from the dataset. To do that, run
 
     ```sh
-    $ROOT/Scripts/extract_instances.py --split=val
+    python3 $ROOT/Scripts/extract_instances.py --split=val
     ```
    It will use a subset of VOC12val 
    annotated with instance masks and dump instances to the hard drive. We are
@@ -65,18 +65,19 @@ Please cite us in your publications if it helps your research:
    To train the context model we use only bounding box annotations. Enter the
    following command to train the context model on the VOC12-train subset for
    10K iterations:
+
     ```sh
     python3 $ROOT/training.py --run_name=voc12train_neg3 --voc=voc12 --split=train --neg_bias=3 --max_iterations=10000
     ```
-    The flag `--run_name` is required. This gives a name to your model. It can be used later to perform inference or to fine-tune this model.
+The flag `--run_name` is required. This gives a unique name to your model. It is to be used later to perform inference and augmentation with this model or to fine-tune the weights if needed.
 
-    The flag `--neg_bias=3` means that we will sample 3 times more background
-    context images during the training.
+The flag `--neg_bias=3` means that we will sample 3 times more background context images during the training.
 
 ## Context Model Inference
 In order to estimate what locations are suitable for pasting new objects
 we will run the trained model on each image of the VOC12-val subset that has
 instance masks. To do so we are using our trained model and run:
+
     ```sh
     python3 $ROOT/Scripts/encode_context.py --run_name=voc12train_neg3 --voc=voc12 --split=val --small_data --ckpt=10
     ```
@@ -99,7 +100,7 @@ instance masks. To do so we are using our trained model and run:
     ```
 This will retrieve boxes with corresponding scores (scored by voc12train_neg3
 model) and match to instances, extracted from voc12val-seg subset. The resulting
-mappings will be dumped to the hard drive and later used for augmentations.
+mappings will be dumped to the hard drive and later used for augmentation.
 
 ## Context-Driven data augmentation
 After the above steps are completed, you can experiment with out context-driven

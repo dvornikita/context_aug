@@ -86,4 +86,4 @@ After obtaining highly confident locations for pasting new instances, we need to
 This will retrieve boxes with corresponding scores (scored by voc12train_neg3 model) and match to instances, extracted from voc12val-seg subset. The resulting mappings will be dumped to the hard drive and later used for augmentation.
 
 ## Context-Driven data augmentation
-After the above steps are completed, you can experiment with out context-drivencopy-paste data augmentation in `$ROOT/context_aug.ipynb` notebook. Check it out for more details.
+After the above steps are completed, you can experiment with out context-driven copy-paste data augmentation in `$ROOT/context_aug.ipynb` notebook. Check it out for more details.

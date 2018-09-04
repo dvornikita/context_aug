@@ -67,7 +67,8 @@ Please cite us in your publications if it helps your research:
    10K iterations:
 
     ```sh
-    python3 $ROOT/training.py --run_name=voc12train_neg3 --voc=voc12 --split=train --neg_bias=3 --max_iterations=10000
+    python3 $ROOT/training.py --run_name=voc12train_neg3 --voc=voc12 \
+    --split=train --neg_bias=3 --max_iterations=10000
     ```
 The flag `--run_name` is required. This gives a unique name to your model. It is to be used later to perform inference and augmentation with this model or to fine-tune the weights if needed.
 

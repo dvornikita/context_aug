@@ -74,35 +74,35 @@ Please cite us in your publications if it helps your research:
     will sample 3 times more background context images during the training.
 
 ## Context Model Inference
-    In order to estimate what locations are suitable for pasting new objects we
-    will run the trained model on each image of the VOC12-val subset that has
-    instance masks. To do so we are using our trained model and run:
+In order to estimate what locations are suitable for pasting new objects we
+will run the trained model on each image of the VOC12-val subset that has
+instance masks. To do so we are using our trained model and run:
 
-    ```sh
-    python3 $ROOT/Scripts/encode_context.py --run_name=voc12train_neg3 --voc=voc12 --split=val --small_data --ckpt=10
-    ```
-    The flag `--small_data` means that we consider only a subset, annotated with
-    instance segmentation masks (here, it's necessary). It will use checkpoint
-    from 10K iterations of the specified model.
+```sh
+python3 $ROOT/Scripts/encode_context.py --run_name=voc12train_neg3 --voc=voc12 --split=val --small_data --ckpt=10
+```
+The flag `--small_data` means that we consider only a subset, annotated with
+instance segmentation masks (here, it's necessary). It will use checkpoint
+from 10K iterations of the specified model.
 
 ## Downloading locations scored by us
-   In case you don't want to (or can't) train and run your own context model,
-   you can download the outputs of a model trained by us from
-   [here](https://drive.google.com/open?id=1tnF6vTyAaUZapYXD6dqI8t4ycftolLIX).
-   Unpack this archive to `$ROOT` and follow the further instructions below.
+In case you don't want to (or can't) train and run your own context model,
+you can download the outputs of a model trained by us from
+[here](https://drive.google.com/open?id=1tnF6vTyAaUZapYXD6dqI8t4ycftolLIX).
+Unpack this archive to `$ROOT` and follow the further instructions below.
 
 ## Matching appropriate locations to instances.
-   After obtaining highly confident locations for pasting new instances, we need
-    to find suitable instances that will fit in each context candidate box. To
-    perform matching of context candidates and objects, run:
-    ```sh
-    python3 $ROOT/Scripts/encode_context.py --run_name=voc12train_neg3 --voc=voc12 --split=val --small_data
-    ```
-    This will retrieve boxes with corresponding scores (scored by voc12train_neg3
-    model) and match to instances, extracted from voc12val-seg subset. The resulting
-    mappings will be dumped to the hard drive and later used for augmentation.
+After obtaining highly confident locations for pasting new instances, we need
+to find suitable instances that will fit in each context candidate box. To
+perform matching of context candidates and objects, run:
+```sh
+python3 $ROOT/Scripts/encode_context.py --run_name=voc12train_neg3 --voc=voc12 --split=val --small_data
+```
+This will retrieve boxes with corresponding scores (scored by voc12train_neg3
+model) and match to instances, extracted from voc12val-seg subset. The resulting
+mappings will be dumped to the hard drive and later used for augmentation.
 
 ## Context-Driven data augmentation
-    After the above steps are completed, you can experiment with out context-driven
-    copy-paste data augmentation in `$ROOT/context_aug.ipynb` notebook. Check it out
-    for more details.
+After the above steps are completed, you can experiment with out context-driven
+copy-paste data augmentation in `$ROOT/context_aug.ipynb` notebook. Check it out
+for more details.

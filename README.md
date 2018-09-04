@@ -65,19 +65,18 @@ Please cite us in your publications if it helps your research:
    To train the context model we use only bounding box annotations. Enter the
    following command to train the context model on the VOC12-train subset for
    10K iterations:
-
     ```sh
-    python3 $ROOT/training.py --run_name=voc12train_neg3 --voc=voc12 \
-    --split=train --neg_bias=3 --max_iterations=10000
+    python3 $ROOT/training.py --run_name=voc12train_neg3 --voc=voc12 --split=train --neg_bias=3 --max_iterations=10000
     ```
-The flag `--run_name` is required. This gives a unique name to your model. It is to be used later to perform inference and augmentation with this model or to fine-tune the weights if needed.
-
-The flag `--neg_bias=3` means that we will sample 3 times more background context images during the training.
+    The flag `--run_name` is required. This gives a unique name to your model.
+    It is to be used later to perform inference and augmentation with this model
+    or to fine-tune the weights if needed. The flag `--neg_bias=3` means that we
+    will sample 3 times more background context images during the training.
 
 ## Context Model Inference
-In order to estimate what locations are suitable for pasting new objects
-we will run the trained model on each image of the VOC12-val subset that has
-instance masks. To do so we are using our trained model and run:
+    In order to estimate what locations are suitable for pasting new objects we
+    will run the trained model on each image of the VOC12-val subset that has
+    instance masks. To do so we are using our trained model and run:
 
     ```sh
     python3 $ROOT/Scripts/encode_context.py --run_name=voc12train_neg3 --voc=voc12 --split=val --small_data --ckpt=10
@@ -99,11 +98,11 @@ instance masks. To do so we are using our trained model and run:
     ```sh
     python3 $ROOT/Scripts/encode_context.py --run_name=voc12train_neg3 --voc=voc12 --split=val --small_data
     ```
-This will retrieve boxes with corresponding scores (scored by voc12train_neg3
-model) and match to instances, extracted from voc12val-seg subset. The resulting
-mappings will be dumped to the hard drive and later used for augmentation.
+    This will retrieve boxes with corresponding scores (scored by voc12train_neg3
+    model) and match to instances, extracted from voc12val-seg subset. The resulting
+    mappings will be dumped to the hard drive and later used for augmentation.
 
 ## Context-Driven data augmentation
-After the above steps are completed, you can experiment with out context-driven
-copy-paste data augmentation in `$ROOT/context_aug.ipynb` notebook. Check it out
-for more details.
+    After the above steps are completed, you can experiment with out context-driven
+    copy-paste data augmentation in `$ROOT/context_aug.ipynb` notebook. Check it out
+    for more details.

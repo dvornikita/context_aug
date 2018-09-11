@@ -6,7 +6,7 @@
 This repository contains original code for the paper 'Modeling Visual
 Context is Key to Augmenting Object Detection Datasets' by Nikita Dvornik,
 Julien Mairal and Cordelia Schmid.
-The paper is available at https://arxiv.org/abs/1807.07428.
+The original paper was published at ECCV 2018 and is available at https://arxiv.org/abs/1807.07428.
 
 The project page containing an extension of the proposed method is available at
 http://thoth.inrialpes.fr/research/context_aug/.

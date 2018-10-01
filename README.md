@@ -66,6 +66,7 @@ To train the context model we use only bounding box annotations. Enter the follo
    python3 $ROOT/training.py --run_name=voc12train_neg3 --dataset=voc12 --split=train --neg_bias=3 --max_iterations=10000
    ```
 The flag `--run_name` is required. This gives a unique name to your model. It is to be used later to perform inference and augmentation with this model or to fine-tune the weights if needed. The flag `--neg_bias=3` means that we will sample 3 times more background context images during the training.
+**Note:** In case you don't feel like training your own model but still can do inference, you may skip this step and download the weights of a trained context model [here](https://drive.google.com/open?id=1IxjCWtg2Ph0Eld3HqPqOlL1mnPxxZmJX).
 
 ## Context Model Inference
 In order to estimate what locations are suitable for pasting new objects we will run the trained model on each image of the VOC12-val subset that has instance masks. To do so we are using our trained model and run:

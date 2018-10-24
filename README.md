@@ -73,7 +73,7 @@ The flag `--run_name` is required. This gives a unique name to your model. It is
 In order to estimate what locations are suitable for pasting new objects we will run the trained model on each image of the VOC12-val subset that has instance masks. To do so we are using our trained model and run:
 
    ```sh
-   python3 $ROOT/Scripts/encode_context.py --run_name=voc12train_neg3 --dataset=voc12 --split=val --small_data --ckpt=10
+   python3 $ROOT/inference.py --run_name=voc12train_neg3 --dataset=voc12 --split=val --small_data --ckpt=10
    ```
 The flag `--small_data` means that we consider only a subset, annotated with instance segmentation masks (here, it's necessary). It will use checkpoint from 10K iterations of the specified model.
 
